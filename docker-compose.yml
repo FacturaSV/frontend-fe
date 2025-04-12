@@ -1,0 +1,26 @@
+services:
+    frontend:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        container_name: frontend
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.frontend.rule=Host(`facturasv.online`)"
+            - "traefik.http.routers.frontend.entrypoints=websecure"
+            - "traefik.http.routers.frontend.tls.certresolver=myresolver"
+            - "traefik.http.services.frontend.loadbalancer.server.port=4200"
+        environment:
+            TZ: America/El_Salvador
+            LC_TIME: en_US.UTF-8
+        restart: always
+        networks:
+            - FacturaSvNetwork
+        # ports:
+        #   - "4200:4200"
+        volumes:
+            - frontend-build:/usr/share/nginx/html
+
+networks:
+    FacturaSvNetwork:
+        external: true

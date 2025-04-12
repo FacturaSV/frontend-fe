@@ -1,0 +1,285 @@
+﻿<div class="z-40 shadow-sm" [ngClass]="{ 'dark text-white-dark': store?.semidark && store?.menu === 'horizontal'}">
+    <div class="relative flex w-full items-center bg-white px-5 py-2.5 dark:bg-[#0e1726]">
+        <div class="flex items-center justify-between horizontal-logo ltr:mr-2 rtl:ml-2 lg:hidden">
+            <a routerLink="/" class="flex items-center main-logo shrink-0">
+                <img class="inline w-8 ltr:-ml-1 rtl:-mr-1" src="/assets/images/logo.svg" alt="" />
+                <span class="hidden align-middle text-2xl font-semibold transition-all duration-300 ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light md:inline">
+                    VRISTO
+                </span>
+            </a>
+
+            <a
+                href="javascript:;"
+                class="collapse-icon flex flex-none rounded-full bg-white-light/40 p-2 hover:bg-white-light/90 hover:text-primary ltr:ml-2 rtl:mr-2 dark:bg-dark/40 dark:text-[#d0d2d6] dark:hover:bg-dark/60 dark:hover:text-primary lg:hidden"
+                (click)="storeData.dispatch({type: 'toggleSidebar'})"
+            >
+                <icon-menu class="w-5 h-5" />
+            </a>
+        </div>
+        <!-- <div class="hidden ltr:mr-2 rtl:ml-2 sm:block">
+            <ul class="flex items-center space-x-2 rtl:space-x-reverse dark:text-[#d0d2d6]">
+                <li>
+                    <a
+                        routerLink="/apps/calendar"
+                        class="block p-2 rounded-full bg-white-light/40 hover:bg-white-light/90 hover:text-primary dark:bg-dark/40 dark:hover:bg-dark/60"
+                    >
+                        <icon-calendar />
+                    </a>
+                </li>
+                <li>
+                    <a
+                        routerLink="/apps/todolist"
+                        class="block p-2 rounded-full bg-white-light/40 hover:bg-white-light/90 hover:text-primary dark:bg-dark/40 dark:hover:bg-dark/60"
+                    >
+                        <icon-edit />
+                    </a>
+                </li>
+                <li>
+                    <a
+                        routerLink="/apps/chat"
+                        class="block p-2 rounded-full bg-white-light/40 hover:bg-white-light/90 hover:text-primary dark:bg-dark/40 dark:hover:bg-dark/60"
+                    >
+                        <icon-chat-notification />
+                    </a>
+                </li>
+            </ul>
+        </div> -->
+        <div
+            class="flex items-center space-x-1.5 ltr:ml-auto rtl:mr-auto rtl:space-x-reverse dark:text-[#d0d2d6] sm:flex-1 ltr:sm:ml-0 sm:rtl:mr-0 lg:space-x-2"
+        >
+            <div class="sm:ltr:mr-auto sm:rtl:ml-auto"></div>
+            <div>
+                <a
+                    href="javascript:;"
+                    class="flex items-center p-2 rounded-full bg-white-light/40 hover:bg-white-light/90 hover:text-primary dark:bg-dark/40 dark:hover:bg-dark/60"
+                    (click)="this.onOpenModal()"
+                >
+                    <icon-refresh />
+                </a>
+            </div>
+            <div>
+                <a
+                    href="javascript:;"
+                    *ngIf="store?.theme === 'light'"
+                    class="flex items-center p-2 rounded-full bg-white-light/40 hover:bg-white-light/90 hover:text-primary dark:bg-dark/40 dark:hover:bg-dark/60"
+                    (click)="storeData.dispatch({type: 'toggleTheme', payload:'dark'})"
+                >
+                    <icon-sun />
+                </a>
+                <a
+                    href="javascript:;"
+                    *ngIf="store?.theme === 'dark'"
+                    class="flex items-center p-2 rounded-full bg-white-light/40 hover:bg-white-light/90 hover:text-primary dark:bg-dark/40 dark:hover:bg-dark/60"
+                    (click)="storeData.dispatch({type: 'toggleTheme', payload:'system'})"
+                >
+                    <icon-moon />
+                </a>
+                <a
+                    href="javascript:;"
+                    *ngIf="store?.theme === 'system'"
+                    class="flex items-center p-2 rounded-full bg-white-light/40 hover:bg-white-light/90 hover:text-primary dark:bg-dark/40 dark:hover:bg-dark/60"
+                    (click)="storeData.dispatch({type: 'toggleTheme', payload:'light'})"
+                >
+                    <icon-laptop />
+                </a>
+            </div>
+
+            <div class="dropdown shrink-0">
+                <div hlMenu class="!block">
+                    <button type="button" hlMenuButton class="relative block group">
+                        <img class="object-cover rounded-full h-9 w-9 saturate-50 group-hover:saturate-100" src="/assets/images/user-profile.jpeg" alt="" />
+                    </button>
+                    <ul
+                        *hlMenuItems
+                        @toggleAnimation
+                        class="top-11 w-[230px] !py-0 font-semibold text-dark ltr:right-0 rtl:left-0 dark:text-white-dark dark:text-white-light/90"
+                    >
+                        <li>
+                            <div class="flex items-center px-4 py-4">
+                                <div class="flex-none">
+                                    <img class="object-cover w-10 h-10 rounded-md" src="/assets/images/user-profile.jpeg" alt="" />
+                                </div>
+                                <div class="truncate ltr:pl-4 rtl:pr-4">
+                                    <h4 class="text-base">
+                                        John Doe<span class="px-1 text-xs rounded bg-success-light text-success ltr:ml-2 rtl:ml-2">Pro</span>
+                                    </h4>
+                                    <a class="text-black/60 hover:text-primary dark:text-dark-light/60 dark:hover:text-white" href="javascript:;">
+                                        {{"johndoe@gmail.com"}}
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <a routerLink="/users/profile" *hlMenuItem="let menuItem" class="dark:hover:text-white">
+                                <icon-user class="h-4.5 w-4.5 shrink-0 ltr:mr-2 rtl:ml-2" />
+
+                                Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/apps/mailbox" *hlMenuItem="let menuItem" class="dark:hover:text-white">
+                                <icon-mail class="h-4.5 w-4.5 shrink-0 ltr:mr-2 rtl:ml-2" />
+
+                                Inbox
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/auth/boxed-lockscreen" *hlMenuItem="let menuItem" class="dark:hover:text-white">
+                                <icon-lock-dots class="h-4.5 w-4.5 shrink-0 ltr:mr-2 rtl:ml-2" />
+
+                                Lock Screen
+                            </a>
+                        </li>
+                        <li class="border-t border-white-light dark:border-white-light/10">
+                            <a routerLink="/auth/boxed-signin" *hlMenuItem="let menuItem" class="!py-3 text-danger">
+                                <icon-logout class="h-4.5 w-4.5 shrink-0 rotate-90 ltr:mr-2 rtl:ml-2" />
+
+                                Sign Out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- horizontal menu -->
+    <ul
+        class="horizontal-menu hidden border-t border-[#ebedf2] bg-white px-6 py-1.5 font-semibold text-black rtl:space-x-reverse dark:border-[#191e3a] dark:bg-[#0e1726] dark:text-white-dark lg:space-x-1.5 xl:space-x-8"
+    >
+        <li class="relative menu nav-item">
+            <a href="javascript:;" class="nav-link">
+                <div class="flex items-center">
+                    <icon-menu-bill class="shrink-0" />
+
+                    <span class="px-2">{{ 'Facturacion' | translate }}</span>
+                </div>
+                <div class="right_arrow">
+                    <icon-caret-down />
+                </div>
+            </a>
+            <ul class="sub-menu">
+                <li class="px-4 py-2 text-sm font-semibold text-gray-600">
+                    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">{{ 'Lista' | translate }}</a>
+                </li>
+                <li  *ngFor="let item of empresaInfoStore?.documentosDte; index as i">
+                    <a
+                    [routerLink]="['/facturacion', item.abreviatura.trim(), 'nueva']"
+                    routerLinkActive="active"
+                    >
+                        {{ item.valor| translate }}
+                    </a>
+                </li>
+            </ul>
+
+        </li>
+        <li class="relative menu nav-item">
+            <a href="javascript:;" class="nav-link">
+                <div class="flex items-center">
+                    <icon-menu-bill class="shrink-0" />
+
+                    <span class="px-2">{{ 'Clientes' | translate }}</span>
+                </div>
+                <div class="right_arrow">
+                    <icon-caret-down />
+                </div>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a routerLink="/cliente/lista" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">{{ 'Lista' | translate }}</a>
+                </li>
+                <li>
+                    <a routerLink="/analytics" routerLinkActive="active">{{ 'analytics' | translate }}</a>
+                </li>
+                <li>
+                    <a routerLink="/finance" routerLinkActive="active">{{ 'finance' | translate }}</a>
+                </li>
+                <li>
+                    <a routerLink="/crypto" routerLinkActive="active">{{ 'crypto' | translate }}</a>
+                </li>
+            </ul>
+        </li>
+        <li class="relative menu nav-item">
+            <a href="javascript:;" class="nav-link">
+                <div class="flex items-center">
+                    <icon-menu-bill class="shrink-0" />
+
+                    <span class="px-2">{{ 'Empresas' | translate }}</span>
+                </div>
+                <div class="right_arrow">
+                    <icon-caret-down />
+                </div>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{ 'Nue' | translate }}</a>
+                </li>
+                <li>
+                    <a routerLink="/analytics" routerLinkActive="active">{{ 'analytics' | translate }}</a>
+                </li>
+                <li>
+                    <a routerLink="/finance" routerLinkActive="active">{{ 'finance' | translate }}</a>
+                </li>
+                <li>
+                    <a routerLink="/crypto" routerLinkActive="active">{{ 'crypto' | translate }}</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<ngx-custom-modal #modalEmpresaInfo [closeOnOutsideClick]="false" [closeOnEscape]="false" [hideCloseButton]="true" customClass="w-full modal-top auth-modal">
+    <form #form="ngForm">
+        <ng-template #modalBody>
+            <!-- Empresa (solo lectura) -->
+            <div class="relative mb-4">
+                <label class="block mb-1 text-sm font-medium text-gray-700">Empresa</label>
+                <input type="text" [value]="empresaInfoStore?.empresa?.nombre" class="bg-gray-100 cursor-not-allowed form-input" disabled />
+            </div>
+
+            <!-- Sucursal -->
+            <div class="relative w-full mb-4">
+                <label for="sucursal" class="block mb-1 text-sm font-medium text-gray-700">Sucursal</label>
+                <select
+                    id="sucursal"
+                    [(ngModel)]="sucursalIdSelected"
+                    name="sucursal"
+                    required
+                    class="w-full px-4 py-3 text-sm form-input"
+                >
+                    <option value="" disabled>Seleccione una sucursal</option>
+                    <option *ngFor="let sucursal of empresaInfoStore?.sucursales" [value]="sucursal.id">
+                        {{ sucursal.nombre }} — {{ sucursal.direccion }}
+                    </option>
+                </select>
+            </div>
+
+            <!-- Actividad Económica -->
+            <div class="relative w-full mb-4">
+                <label for="actividadEconomica" class="block mb-1 text-sm font-medium text-gray-700">Actividad Económica</label>
+                <select
+                    id="actividadEconomica"
+                    [(ngModel)]="codigoActEcoSelected"
+                    name="actividadEconomica"
+                    required
+                    class="w-full px-4 py-3 text-sm form-input"
+                >
+                    <option value="" disabled>Seleccione una Actividad Económica</option>
+                    <option *ngFor="let actEconomica of empresaInfoStore?.actsEconomica" [value]="actEconomica.codigo">
+                        {{ actEconomica.codigo }} — {{ actEconomica.valor }}
+                    </option>
+                </select>
+            </div>
+        </ng-template>
+
+        <!-- Footer -->
+        <ng-template #modalFooter>
+            <div class="flex justify-end gap-2 pt-4 border-t ">
+                <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancelar</button>
+                <button type="button" class="btn btn-primary" [disabled]="!sucursalIdSelected || !codigoActEcoSelected" (click)="onCheckInfoSelected()">
+                    Aceptar
+                </button>
+            </div>
+        </ng-template>
+    </form>
+</ngx-custom-modal>

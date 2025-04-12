@@ -1,0 +1,63 @@
+<div>
+    <ul class="flex space-x-2 rtl:space-x-reverse">
+        <li>
+            <a href="javascript:;" class="text-primary hover:underline">Cliente</a>
+        </li>
+        <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+            <span>Lista</span>
+        </li>
+    </ul>
+    <div class="mt-5 panel">
+        <h5 class="mb-5 text-lg font-semibold dark:text-white-light">Busqueda de clientes</h5>
+        <div class="datatable">
+            <ng-datatable
+                [rows]="rows"
+                [columns]="cols"
+                [columnFilter]="true"
+                [isServerMode]="true"
+                [showPageSize]="true"
+                [sortable]="false"
+                [totalRows]="totalRows"
+                [loading]="loading"
+                [page]="page"
+                [pageSize]="pageSize"
+                [pagination]="true"
+                [showNumbers]="true"
+                [pageSizeOptions]="[10, 20, 30, 50, 100]"
+                (changeServer)="onServerChange($event)"
+                skin="bh-table-striped bh-table-hover"
+                skin="whitespace-nowrap table-hover"
+                firstArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M13 19L7 12L13 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path opacity="0.5" d="M16.9998 19L10.9998 12L16.9998 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
+                lastArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M11 19L17 12L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path opacity="0.5" d="M6.99976 19L12.9998 12L6.99976 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg> '
+                previousArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M15 5L9 12L15 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
+                nextArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
+            >
+                <ng-template slot="direccion" let-value="data">
+                    <div>{{ value.municipio?.valor }} {{ value.departamento?.valor }}</div>
+                    <div class="truncate max-w-[225px]">
+                        {{ value.direccion }}
+                    </div>
+                </ng-template>
+
+                <ng-template slot="actividadCodigo" let-value="data">
+                    <div class="truncate max-w-[225px]" *ngFor="let act of value.ClienteActividadEconomica">
+                        {{ act.actividadEconomica?.codigo }}:{{ act.actividadEconomica?.valor }}
+                    </div>
+                </ng-template>
+                <ng-template slot="actions" let-value="data">
+                    <div class="flex items-center justify-center gap-2" >
+                        <button type="button" ngxTippy="Ver" class="p-2 text-gray-600 hover:text-blue-600" (click)="onView(value)">
+                            <icon-eye class="w-5 h-5" />
+                        </button>
+                        <button type="button" ngxTippy="Editar" class="p-2 text-gray-600 hover:text-yellow-600" (click)="onEdit(value)">
+                            <icon-pencil class="w-5 h-5" />
+                        </button>
+                        <button type="button" ngxTippy="Eliminar" class="p-2 text-gray-600 hover:text-red-600" (click)="onDelete(value)">
+                            <icon-trash-lines class="w-5 h-5" />
+                        </button>
+                    </div>
+                </ng-template>
+            </ng-datatable>
+        </div>
+    </div>
+</div>

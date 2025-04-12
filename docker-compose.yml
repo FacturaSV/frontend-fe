@@ -17,8 +17,8 @@ services:
             - FacturaSvNetwork
         # ports:
         #   - "4200:4200"
-        volumes:
-            - frontend-build:/usr/share/nginx/html
+        # volumes:
+        #     - frontend-build:/usr/share/nginx/html
 
 volumes:
     frontend-build:

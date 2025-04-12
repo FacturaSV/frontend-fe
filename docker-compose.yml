@@ -21,6 +21,9 @@ services:
         volumes:
             - frontend-build:/usr/share/nginx/html
 
+volumes:
+    frontend-build:
+
 networks:
     FacturaSvNetwork:
         external: true

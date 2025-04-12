@@ -4,6 +4,5 @@
 
 export const environment = {
     production: false,
-    backendUrl: 'http://localhost:3000', // Aquí defines la URL base del backend
-    keycloakBaseUrl: 'http://keycloak-ism::8080', // Aquí defines la URL base de Keycloak
+    backendUrl: 'https://api.facturasv.online',
 };

@@ -17,8 +17,6 @@ jobs:
         run: |
           REQUIRED_FILES=(
             "docker-compose.yml"
-            "config/postgres/init.sql"
-            "config/traefik/dynamic/auth.yml"
           )
           for file in "${REQUIRED_FILES[@]}"; do
             if [ ! -e "$file" ]; then

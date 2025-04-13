@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 export interface Empresa {
     id?: number;
@@ -25,7 +26,8 @@ export interface Empresa {
     providedIn: 'root',
 })
 export class EmpresaService {
-    private apiUrl = 'http://localhost:3000/empresa'; // Reemplaza con la URL de tu API
+    private backendUrl = `${environment.backendUrl}/empresa`; // URL del backend
+
 
     constructor(private http: HttpClient) {}
 
@@ -40,19 +42,19 @@ export class EmpresaService {
     // Obtener todas las empresas con paginación
     getEmpresas(page: number = 1, limit: number = 10, transactionId?: string, tenantSchema?: string): Observable<any> {
         const headers = this.getHeaders(transactionId, tenantSchema);
-        return this.http.get<any>(`${this.apiUrl}?page=${page}&limit=${limit}`, { headers }).pipe(catchError(this.handleError));
+        return this.http.get<any>(`${this.backendUrl}?page=${page}&limit=${limit}`, { headers }).pipe(catchError(this.handleError));
     }
 
     // Obtener una empresa por ID
     getEmpresaById(id: number, transactionId?: string, tenantSchema?: string): Observable<any> {
         const headers = this.getHeaders(transactionId, tenantSchema);
-        return this.http.get<any>(`${this.apiUrl}/${id}`, { headers }).pipe(catchError(this.handleError));
+        return this.http.get<any>(`${this.backendUrl}/${id}`, { headers }).pipe(catchError(this.handleError));
     }
 
     // Obtener una empresa por Keycloak Group ID
     getEmpresaByGroup(group: string, transactionId?: string, tenantSchema?: string): Observable<any> {
         const headers = this.getHeaders(transactionId, tenantSchema);
-        return this.http.patch<any>(`${this.apiUrl}`, { headers })
+        return this.http.patch<any>(`${this.backendUrl}`, { headers })
             .pipe(
                 map(response => response?.data),  // ✅ Extrae solo el `data` de la respuesta
                 catchError(this.handleError)
@@ -63,19 +65,19 @@ export class EmpresaService {
     // Crear una nueva empresa
     createEmpresa(empresa: Empresa, transactionId?: string, tenantSchema?: string): Observable<any> {
         const headers = this.getHeaders(transactionId, tenantSchema);
-        return this.http.post<any>(this.apiUrl, empresa, { headers }).pipe(catchError(this.handleError));
+        return this.http.post<any>(this.backendUrl, empresa, { headers }).pipe(catchError(this.handleError));
     }
 
     // Actualizar una empresa por ID
     updateEmpresa(id: number, empresa: Empresa, transactionId?: string, tenantSchema?: string): Observable<any> {
         const headers = this.getHeaders(transactionId, tenantSchema);
-        return this.http.put<any>(`${this.apiUrl}/${id}`, empresa, { headers }).pipe(catchError(this.handleError));
+        return this.http.put<any>(`${this.backendUrl}/${id}`, empresa, { headers }).pipe(catchError(this.handleError));
     }
 
     // Eliminar una empresa por ID
     deleteEmpresa(id: number, transactionId?: string, tenantSchema?: string): Observable<any> {
         const headers = this.getHeaders(transactionId, tenantSchema);
-        return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers }).pipe(catchError(this.handleError));
+        return this.http.delete<any>(`${this.backendUrl}/${id}`, { headers }).pipe(catchError(this.handleError));
     }
 
     // Manejo de errores

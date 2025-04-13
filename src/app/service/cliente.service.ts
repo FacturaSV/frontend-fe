@@ -2,12 +2,13 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Empresa } from './empresa.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ClienteService {
-    private apiUrl = 'http://localhost:3000/cliente'; // Reemplaza con la URL de tu API
+    private backendUrl = `${environment.backendUrl}/cliente`; // URL del backend
 
     constructor(private http: HttpClient) {}
 
@@ -32,7 +33,7 @@ export class ClienteService {
     ): Observable<any> {
         const headers = this.getHeaders(transactionId, tenantSchema);
         const params = new HttpParams().set('empresa', empresaId.toString()).set('page', page.toString()).set('limit', limit.toString());
-        return this.http.post<any>(`${this.apiUrl}/empresa`, filtros, { headers, params }).pipe(catchError(this.handleError));
+        return this.http.post<any>(`${this.backendUrl}/empresa`, filtros, { headers, params }).pipe(catchError(this.handleError));
     }
 
 
@@ -42,7 +43,7 @@ export class ClienteService {
         tenantSchema?: string,
     ): Observable<any> {
         const headers = this.getHeaders(transactionId, tenantSchema);
-        return this.http.get<any>(`${this.apiUrl}/${clienteId}`, { headers }).pipe(catchError(this.handleError));
+        return this.http.get<any>(`${this.backendUrl}/${clienteId}`, { headers }).pipe(catchError(this.handleError));
     }
 
     private handleError(error: any) {

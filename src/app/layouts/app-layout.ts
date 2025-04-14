@@ -11,10 +11,18 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppLayout {
     store: any;
     showTopButton = false;
+    headerClass = '';
     constructor(public translate: TranslateService, public storeData: Store<any>, private service: AppService, private router: Router) {
         this.initStore();
     }
-    headerClass = '';
+    async initStore() {
+        this.storeData
+            .select((d) => d.index)
+            .subscribe((d) => {
+                this.store = d;
+            });
+    }
+
     ngOnInit() {
         this.initAnimation();
         this.toggleLoader();
@@ -52,13 +60,6 @@ export class AppLayout {
         }, 500);
     }
 
-    async initStore() {
-        this.storeData
-            .select((d) => d.index)
-            .subscribe((d) => {
-                this.store = d;
-            });
-    }
 
     goToTop() {
         document.body.scrollTop = 0;

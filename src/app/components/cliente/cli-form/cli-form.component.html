@@ -1,10 +1,11 @@
 <div>
+
     <ul class="flex space-x-2 rtl:space-x-reverse">
         <li>
             <a href="javascript:;" class="text-primary hover:underline">Cliente</a>
         </li>
         <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
-            <span>Lista</span>
+            <span> {{ isEditMode ? 'Editar': 'Nuevo'}}</span>
         </li>
     </ul>
     <div class="mt-5 panel">
@@ -97,14 +98,17 @@
                 <ng-select
                     [items]="actEconomica"
                     [multiple]="true"
-                    formControlName="actividadEconomicaIds"
+                    formControlName="ClienteActividadEconomica"
                     [bindLabel]="'codigo'"
                     [bindValue]="'id'"
                     [searchable]="true"
                     [clearable]="false"
                     placeholder="Seleccione actividades"
                     class="custom-multiselect"
-                ></ng-select>
+                >
+                <ng-template ng-option-tmp let-actEconomica="item"> {{ actEconomica.codigo }} — {{ actEconomica.valor }} </ng-template>
+                <ng-template ng-label-tmp let-actEconomica="item"> {{ actEconomica.codigo }} — {{ actEconomica.valor }} </ng-template>
+            </ng-select>
             </div>
 
             <button type="submit" class="btn btn-primary !mt-6">Guardar</button>

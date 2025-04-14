@@ -4,5 +4,5 @@
 
 export const environment = {
     production: false,
-    backendUrl: 'https://api.facturasv.online',
+    backendUrl: 'http://localhost:3000',
 };

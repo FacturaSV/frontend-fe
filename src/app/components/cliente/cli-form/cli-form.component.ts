@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ClienteService } from 'src/app/service/cliente.service';
 import { AlertService, CatalogosAgrupados } from 'src/app/shared/alert.service';
+import { Store } from '@ngrx/store';
 
 @Component({
     selector: 'app-cli-form',
@@ -32,27 +33,28 @@ export class CliFormComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private route: ActivatedRoute,
+        public storeData: Store<any>,
         private clienteService: ClienteService,
         private alert: AlertService,
     ) {}
 
     async ngOnInit() {
+        this.route.paramMap.subscribe((params) => {
+            const id = params.get('id');
+            if (id) {
+                this.isEditMode = true;
+                this.clienteId = +id;
+                this.loadCliente(+id);
+                this.storeData.dispatch({ type: 'toggleMainLoader', payload: true });
+            }
+        });
         this.initForm();
-
         const catalogos = await this.alert.getStoreCatalogoInfo();
         this.cat012 = catalogos?.['CAT-012'] ?? [];
         this.cat013 = catalogos?.['CAT-013'] ?? [];
 
         const actEco = await this.alert.getStoreActEconomicaInfo();
         this.actEconomica = actEco ?? [];
-
-        this.route.paramMap.subscribe((params) => {
-            const id = params.get('id');
-            if (id) {
-                this.isEditMode = true;
-                this.loadCliente(+id);
-            }
-        });
     }
 
     initForm() {
@@ -66,7 +68,7 @@ export class CliFormComponent implements OnInit {
             direccion: [''],
             departamentoId: [null],
             municipioId: [null],
-            actividadEconomicaIds: [[]], // Array de ids
+            ClienteActividadEconomica: [[]], // Array de ids
         });
     }
 
@@ -75,27 +77,38 @@ export class CliFormComponent implements OnInit {
             const cliente = res.data;
             this.form.patchValue({
                 ...cliente,
-                actividadEconomicaIds: cliente.ClienteActividadEconomica?.map((a: any) => a.actividadEconomicaId),
-            });
+                ClienteActividadEconomica: cliente.ClienteActividadEconomica?.map(
+                  (a: any) => a.actividadEconomicaId
+                ) ?? [],
+              });
+            this.storeData.dispatch({ type: 'toggleMainLoader', payload: false });
         });
     }
 
     onSubmit() {
         if (this.form.invalid) return;
-        const data = this.form.value;
-        console.log(this.isEditMode ? 'Editar' : 'Crear', data);
+        const formValue = this.form.value;
 
-        // if (this.isEditMode) {
-        //     // update
-        //     this.clienteService.actualizarCliente(this.clienteId, data).subscribe(() => {
-        //         this.alert.toast('Cliente actualizado con éxito.');
-        //     });
-        // } else {
-        //     // create
-        //     this.clienteService.crearCliente(data).subscribe(() => {
-        //         this.alert.toast('Cliente creado con éxito.');
-        //     });
-        // }
+        const data = {
+            ...formValue,
+            ClienteActividadEconomica: Array.isArray(formValue.ClienteActividadEconomica)
+                ? formValue.ClienteActividadEconomica.map((id: number) => ({
+                      actividadEconomicaId: id,
+                  }))
+                : [],
+        };
+
+        if (this.isEditMode) {
+            // update
+            this.clienteService.updateCliente(this.clienteId, data).subscribe(() => {
+                this.alert.success('Accion actualizar cliente', 'Ejecutado con éxito', 1000);
+            });
+        } else {
+            // create
+            this.clienteService.createCliente(data).subscribe(() => {
+                this.alert.success('Accion crear cliente', 'Ejecutado con éxito', 1000);
+            });
+        }
     }
 
     validateField(field: string) {

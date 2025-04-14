@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ClienteService } from 'src/app/service/cliente.service';
 import { AlertService } from 'src/app/shared/alert.service';
 
@@ -41,6 +42,7 @@ export class CliListComponent implements OnInit {
 
     constructor(
         private clienteService: ClienteService,
+        private router: Router,
         private alert: AlertService,
     ) {}
     ngOnInit(): void {
@@ -103,7 +105,7 @@ export class CliListComponent implements OnInit {
         alert('View onView \n' + user.id + ', ' + user.firstName + ', ' + user.lastName + ', ' + user.email);
     }
     onEdit(user: any) {
-        alert('View onEdit \n' + user.id + ', ' + user.firstName + ', ' + user.lastName + ', ' + user.email);
+        this.router.navigate(['cliente/edit', user.id]);
     }
     onDelete(user: any) {
         this.alert.confirm(
@@ -111,7 +113,15 @@ export class CliListComponent implements OnInit {
             'Esta acción no se puede deshacer.',
             () => {
                 // acción si confirma
-                // this.eliminarCliente();
+                this.clienteService.deleteCliente(user.id).subscribe(
+                    () => {
+                        this.alert.success('Cliente eliminado', 'Ejecutado con éxito', 1000);
+                        this.cargarClientes();
+                    },
+                    (error) => {
+                        this.alert.error('Error al eliminar cliente', error.message);
+                    },
+                );
             },
             () => {
                 // acción si cancela (opcional)

@@ -4,7 +4,7 @@
             <a href="javascript:;" class="text-primary hover:underline">Cliente</a>
         </li>
         <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
-            <span>Lista</span>
+            <span>Editar</span>
         </li>
     </ul>
     <div class="mt-5 panel">
@@ -46,9 +46,9 @@
                 </ng-template>
                 <ng-template slot="actions" let-value="data">
                     <div class="flex items-center justify-center gap-2" >
-                        <button type="button" ngxTippy="Ver" class="p-2 text-gray-600 hover:text-blue-600" (click)="onView(value)">
+                        <!-- <button type="button" ngxTippy="Ver" class="p-2 text-gray-600 hover:text-blue-600" (click)="onView(value)">
                             <icon-eye class="w-5 h-5" />
-                        </button>
+                        </button> -->
                         <button type="button" ngxTippy="Editar" class="p-2 text-gray-600 hover:text-yellow-600" (click)="onEdit(value)">
                             <icon-pencil class="w-5 h-5" />
                         </button>

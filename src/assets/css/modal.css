@@ -10,7 +10,7 @@ ngx-custom-modal .modal {
 }
 
 .modal .modal-dialog {
-    @apply my-auto w-full max-w-lg overflow-hidden rounded-lg;
+    @apply w-full max-w-lg my-auto overflow-hidden rounded-lg;
 }
 
 .modal .modal-content {
@@ -29,7 +29,7 @@ ngx-custom-modal .modal {
 }
 
 .modal .modal-footer {
-    @apply mt-8 flex items-center justify-end px-5 pb-5;
+    @apply flex items-center justify-end px-5 pb-5 mt-8;
 }
 
 .modal.modal-top .modal-dialog {
@@ -117,7 +117,7 @@ ngx-custom-modal .modal {
 }
 
 .modal.profile-modal .modal-content {
-    @apply bg-secondary py-5;
+    @apply py-5 bg-secondary;
 }
 
 .modal.profile-modal .modal-dialog {
@@ -138,11 +138,11 @@ ngx-custom-modal .modal {
 }
 
 .modal.auth-modal .modal-dialog {
-    @apply max-w-sm;
+    @apply max-w-xl;
 }
 
 .modal.auth-modal .modal-header div {
-    @apply bg-transparent font-semibold;
+    @apply font-semibold bg-transparent;
 }
 
 .modal.auth-modal .modal-header,
@@ -152,7 +152,7 @@ ngx-custom-modal .modal {
 
 .modal.auth-modal .modal-header .close,
 .modal.slider-modal .modal-header .close {
-    @apply top-1/2 -translate-y-1/2;
+    @apply -translate-y-1/2 top-1/2;
 }
 
 .modal.slider-modal .modal-footer,

@@ -1,5 +1,5 @@
 <div
-    class="main-section relative font-nunito text-sm font-normal antialiased"
+    class="relative text-sm antialiased font-normal main-section font-nunito"
     [ngClass]="[store.sidebar ? 'toggle-sidebar' : '', store.menu, store.layout, store.rtlClass]"
 >
     <!-- screen loader -->
@@ -19,13 +19,13 @@
     </div>
 
     <div class="text-black dark:text-white-dark">
-        <div *ngIf="showTopButton" class="fixed bottom-6 z-50 ltr:right-6 rtl:left-6">
+        <div *ngIf="showTopButton" class="fixed z-50 bottom-6 ltr:right-6 rtl:left-6">
             <button
                 type="button"
                 class="btn btn-outline-primary animate-pulse rounded-full bg-[#fafafa] p-2 dark:bg-[#060818] dark:hover:bg-primary"
                 (click)="goToTop()"
             >
-                <svg width="24" height="24" class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="24" height="24" class="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         opacity="0.5"
                         fill-rule="evenodd"

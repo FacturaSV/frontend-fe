@@ -7,6 +7,8 @@ import { CliFormComponent } from './cli-form/cli-form.component';
 export const routes: Routes = [
     { path: 'lista', component: CliListComponent },
     { path: 'edit/:id', component: CliFormComponent },
+    { path: 'new', component: CliFormComponent },
+
 ];
 
 @NgModule({

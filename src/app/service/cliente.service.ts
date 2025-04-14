@@ -36,6 +36,22 @@ export class ClienteService {
         return this.http.post<any>(`${this.backendUrl}/empresa`, filtros, { headers, params }).pipe(catchError(this.handleError));
     }
 
+    createCliente(cliente: any, transactionId?: string, tenantSchema?: string): Observable<any> {
+        const headers = this.getHeaders(transactionId, tenantSchema);
+        return this.http.post<any>(this.backendUrl, cliente, { headers }).pipe(catchError(this.handleError));
+    }
+
+    // Actualizar una empresa por ID
+    updateCliente(id: number, cliente: any, transactionId?: string, tenantSchema?: string): Observable<any> {
+        const headers = this.getHeaders(transactionId, tenantSchema);
+        return this.http.put<any>(`${this.backendUrl}/${id}`, cliente, { headers }).pipe(catchError(this.handleError));
+    }
+
+    deleteCliente(id: number, transactionId?: string, tenantSchema?: string): Observable<any> {
+        const headers = this.getHeaders(transactionId, tenantSchema);
+        return this.http.delete<any>(`${this.backendUrl}/${id}`, { headers }).pipe(catchError(this.handleError));
+    }
+
 
     buscarClientesById(
         clienteId: number,

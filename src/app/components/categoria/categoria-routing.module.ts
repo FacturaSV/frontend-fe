@@ -6,6 +6,7 @@ import { CatgFormComponent } from './catg-form/catg-form.component';
 export const routes: Routes = [
     { path: 'list', component: CatgListComponent },
     { path: 'edit/:id', component: CatgFormComponent },
+    { path: 'new', component: CatgFormComponent },
     { path: 'new/:nivel/:id', component: CatgFormComponent },
 ];
 

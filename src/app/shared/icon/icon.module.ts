@@ -164,6 +164,7 @@ import { IconXCircleComponent } from './icon-x-circle';
 import { IconZipFileComponent } from './icon-zip-file';
 import { IconCodeFileComponent } from 'src/app/shared/icon/icon-code-file';
 import { IconMenuBillComponent } from './menu/icon-menu-bill';
+import { IconAddComponent } from './icon-add';
 
 @NgModule({
     imports: [CommonModule],
@@ -332,6 +333,7 @@ import { IconMenuBillComponent } from './menu/icon-menu-bill';
         IconZipFileComponent,
         IconCodeFileComponent,
         IconMenuBillComponent,
+        IconAddComponent
     ],
     exports: [
         IconMenuAppsComponent,
@@ -498,6 +500,7 @@ import { IconMenuBillComponent } from './menu/icon-menu-bill';
         IconZipFileComponent,
         IconCodeFileComponent,
         IconMenuBillComponent,
+        IconAddComponent,
     ],
 })
 export class IconModule {}

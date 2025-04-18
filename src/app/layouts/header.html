@@ -180,10 +180,10 @@
             </a>
             <ul class="sub-menu">
                 <li>
-                    <a routerLink="/cliente/lista" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">{{ 'Lista' | translate }}</a>
+                    <a routerLink="/cliente/list" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">{{ 'Lista clientes' | translate }}</a>
                 </li>
                 <li>
-                    <a routerLink="/cliente/new" routerLinkActive="active">{{ 'Nuevo' | translate }}</a>
+                    <a routerLink="/cliente/new" routerLinkActive="active">{{ 'Nuevo cliente' | translate }}</a>
                 </li>
             </ul>
         </li>
@@ -192,7 +192,7 @@
                 <div class="flex items-center">
                     <icon-menu-bill class="shrink-0" />
 
-                    <span class="px-2">{{ 'Empresas' | translate }}</span>
+                    <span class="px-2">{{ 'Productos' | translate }}</span>
                 </div>
                 <div class="right_arrow">
                     <icon-caret-down />
@@ -200,16 +200,50 @@
             </a>
             <ul class="sub-menu">
                 <li>
-                    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{ 'Nue' | translate }}</a>
+                    <a routerLink="/productos/list" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{ 'Lista productos' | translate }}</a>
                 </li>
                 <li>
-                    <a routerLink="/analytics" routerLinkActive="active">{{ 'analytics' | translate }}</a>
+                    <a routerLink="/productos/new" routerLinkActive="active">{{ 'Nuevo producto' | translate }}</a>
+                </li>
+            </ul>
+        </li>
+        <li class="relative menu nav-item">
+            <a href="javascript:;" class="nav-link">
+                <div class="flex items-center">
+                    <icon-menu-bill class="shrink-0" />
+
+                    <span class="px-2">{{ 'Sucursal' | translate }}</span>
+                </div>
+                <div class="right_arrow">
+                    <icon-caret-down />
+                </div>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a routerLink="/sucursal/list" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{ 'Lista sucursales' | translate }}</a>
                 </li>
                 <li>
-                    <a routerLink="/finance" routerLinkActive="active">{{ 'finance' | translate }}</a>
+                    <a routerLink="/sucursal/new" routerLinkActive="active">{{ 'Nuevo sucursal' | translate }}</a>
+                </li>
+            </ul>
+        </li>
+        <li class="relative menu nav-item">
+            <a href="javascript:;" class="nav-link">
+                <div class="flex items-center">
+                    <icon-menu-bill class="shrink-0" />
+
+                    <span class="px-2">{{ 'Categorias' | translate }}</span>
+                </div>
+                <div class="right_arrow">
+                    <icon-caret-down />
+                </div>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a routerLink="/categoria/list" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{ 'Lista categorias' | translate }}</a>
                 </li>
                 <li>
-                    <a routerLink="/crypto" routerLinkActive="active">{{ 'crypto' | translate }}</a>
+                    <a routerLink="/categoria/new" routerLinkActive="active">{{ 'Nuevo categoria' | translate }}</a>
                 </li>
             </ul>
         </li>
@@ -231,9 +265,10 @@
 
                 <ng-select
                     [items]="empresaInfoStore?.sucursales"
-                    formControlName="sucursal"
+                    name="sucursal"
                     [bindLabel]="'nombre'"
                     [bindValue]="'id'"
+                    [(ngModel)]="sucursalIdSelected"
                     [searchable]="true"
                     [clearable]="false"
                     placeholder="Seleccione una sucursal"
@@ -250,8 +285,9 @@
 
                 <ng-select
                     [items]="empresaInfoStore?.actsEconomica"
-                    formControlName="actividadEconomica"
+                    name="actividadEconomica"
                     [bindValue]="'codigo'"
+                    [(ngModel)]="codigoActEcoSelected"
                     [searchable]="true"
                     [clearable]="false"
                     placeholder="Seleccione una Actividad Económica"

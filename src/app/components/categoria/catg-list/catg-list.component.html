@@ -1,0 +1,108 @@
+<div>
+    <ul class="flex space-x-2 rtl:space-x-reverse">
+        <li>
+            <a href="javascript:;" class="text-primary hover:underline">Categoria</a>
+        </li>
+        <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+            <span>lista</span>
+        </li>
+    </ul>
+    <div class="mt-5 panel">
+        <h5 class="mb-5 text-lg font-semibold dark:text-white-light">Lista de categorias</h5>
+        <div class="datatable">
+            <div class="flex justify-end mb-3">
+                <button type="button" class="btn btn-sm btn-primary" (click)="toggleAllTreeview()">
+                    {{ toggleAllExpanded ? 'Colapsar todas' : 'Expandir todas' }}
+                </button>
+            </div>
+
+            <ul class="font-semibold">
+                <ng-container *ngFor="let cat of categoriasArbol">
+                    <li class="py-[5px] flex justify-between items-center border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                        <div>
+                            <button type="button" (click)="toggleTreeview1(cat.id)">
+                                <icon-caret-down
+                                    [class]="
+                                        'w-5 h-5 text-primary inline relative -top-1 ltr:mr-2 rtl:ml-2 ' + [treeview1.includes(cat.id) ? 'rotate-180' : '']
+                                    "
+                                />
+                                <icon-folder class="relative inline -top-1 text-primary ltr:mr-2 rtl:ml-2" />
+                                {{ cat.nombre }}
+                            </button>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="text-sm text-blue-600 hover:underline" (click)="onNew(cat)">
+                                <icon-add class="w-5 h-5" />
+                            </button>
+                            <button class="text-sm text-blue-600 hover:underline" (click)="onEdit(cat)"><icon-pencil class="w-5 h-5" /></button>
+                            <button class="text-sm text-red-600 hover:underline" (click)="onDelete(cat)"><icon-trash-lines class="w-5 h-5" /></button>
+                        </div>
+                    </li>
+
+                    <div [@slideDownUp]="!treeview1.includes(cat.id)" class="accordion-content">
+                        <ng-container *ngTemplateOutlet="categoriaTree; context: { $implicit: cat.subcategorias }"></ng-container>
+                    </div>
+                </ng-container>
+            </ul>
+
+            <!-- Template recursivo -->
+            <ng-template #categoriaTree let-subcategorias>
+                <ul class="ltr:pl-14 rtl:pr-14">
+                    <ng-container *ngFor="let sub of subcategorias">
+                        <ng-container *ngIf="sub.subcategorias?.length > 0; else hoja">
+                            <li class="py-[5px] flex justify-between items-center border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                                <div>
+                                    <button type="button" (click)="toggleTreeview1(sub.id)">
+                                        <icon-caret-down
+                                            [class]="
+                                                'w-5 h-5 text-primary inline relative -top-1 ltr:mr-2 rtl:ml-2 ' +
+                                                [treeview1.includes(sub.id) ? 'rotate-180' : '']
+                                            "
+                                        />
+                                        <icon-folder class="relative inline -top-1 text-primary ltr:mr-2 rtl:ml-2" />
+                                        {{ sub.nombre }}
+                                    </button>
+                                </div>
+                                <div class="flex gap-2">
+                                    <button class="text-sm text-blue-600 hover:underline" (click)="onNew(sub)">
+                                        <icon-add class="w-5 h-5" />
+                                    </button>
+                                    <button class="text-sm text-blue-600 hover:underline" (click)="onEdit(sub)">
+                                        <icon-pencil class="w-5 h-5" />
+                                    </button>
+                                    <button class="text-sm text-red-600 hover:underline" (click)="onDelete(sub)">
+                                        <icon-trash-lines class="w-5 h-5" />
+                                    </button>
+                                </div>
+                            </li>
+                            <li *ngIf="treeview1.includes(sub.id)">
+                                <div class="accordion-content">
+                                    <ng-container *ngTemplateOutlet="categoriaTree; context: { $implicit: sub.subcategorias }"></ng-container>
+                                </div>
+                            </li>
+                        </ng-container>
+                        <ng-template #hoja>
+                            <li class="py-[5px] flex justify-between items-center border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                                <div>
+                                    <!-- <icon-txt-file class="inline h-4.5 w-4.5 text-primary ltr:mr-2 rtl:ml-2" /> -->
+                                    {{ sub.nombre }}
+                                </div>
+                                <div class="flex gap-2">
+                                    <button class="text-sm text-blue-600 hover:underline" (click)="onNew(sub)">
+                                        <icon-add class="w-5 h-5" />
+                                    </button>
+                                    <button class="text-sm text-blue-600 hover:underline" (click)="onEdit(sub)">
+                                        <icon-pencil class="w-5 h-5" />
+                                    </button>
+                                    <button class="text-sm text-red-600 hover:underline" (click)="onDelete(sub)">
+                                        <icon-trash-lines class="w-5 h-5" />
+                                    </button>
+                                </div>
+                            </li>
+                        </ng-template>
+                    </ng-container>
+                </ul>
+            </ng-template>
+        </div>
+    </div>
+</div>

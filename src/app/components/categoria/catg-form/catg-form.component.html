@@ -1,0 +1,63 @@
+<div>
+    <ul class="flex space-x-2 rtl:space-x-reverse">
+        <li>
+            <a href="javascript:;" class="text-primary hover:underline">Categoría</a>
+        </li>
+        <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+            <span> {{ isEditMode ? 'Editar' : 'Nueva' }}</span>
+        </li>
+    </ul>
+
+    <div class="mt-5 panel">
+        <h5 class="mb-5 text-lg font-semibold dark:text-white-light">Formulario Categoría</h5>
+        <form class="space-y-5" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <!-- Nivel y Categoría Padre -->
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div [ngClass]="validateField('nivel')">
+                    <label for="nivel">Nivel</label>
+                    <ng-select
+                        [items]="niveles"
+                        [bindLabel]="'nombre'"
+                        [bindValue]="'id'"
+                        formControlName="nivel"
+                        [searchable]="false"
+                        [clearable]="false"
+                        placeholder="Seleccione el nivel"
+                        class="custom-multiselect"
+                    ></ng-select>
+                    <small *ngIf="hasError('nivel', 'required')" class="text-danger">Campo requerido.</small>
+                </div>
+
+                <div [ngClass]="validateField('categoriaPadreId')">
+                    <label for="categoriaPadreId">Categoría Padre</label>
+                    <ng-select
+                        [items]="categoriasPadre"
+                        formControlName="categoriaPadreId"
+                        [bindLabel]="'nombre'"
+                        [bindValue]="'id'"
+                        [searchable]="true"
+                        [clearable]="true"
+                        placeholder="Seleccione categoría padre (opcional)"
+                        class="custom-multiselect"
+                    ></ng-select>
+                </div>
+            </div>
+
+            <!-- Nombre y Descripción -->
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div [ngClass]="validateField('nombre')">
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" type="text" formControlName="nombre" placeholder="Nombre de categoría" class="form-input" />
+                    <small *ngIf="hasError('nombre', 'required')" class="text-danger">Campo requerido.</small>
+                </div>
+
+                <div>
+                    <label for="descripcion">Descripción</label>
+                    <input id="descripcion" type="text" formControlName="descripcion" placeholder="Descripción opcional" class="form-input" />
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary !mt-6">Guardar</button>
+        </form>
+    </div>
+</div>

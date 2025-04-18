@@ -29,10 +29,29 @@ export const routes: Routes = [
                 loadChildren: () => import('./components/factura/factura.module').then((m) => m.FacturaModule),
                 data: { title: 'Facturacion' }, // ✅ Agregar `title`
                 // canActivate: [AuthGuard], // Protegido con AuthGuard
-            },            {
+            },
+            {
                 path: 'cliente',
                 loadChildren: () => import('./components/cliente/cliente.module').then((m) => m.ClienteModule),
                 data: { title: 'Clientes' }, // ✅ Agregar `title`
+                // canActivate: [AuthGuard], // Protegido con AuthGuard
+            },
+            {
+                path: 'producto',
+                loadChildren: () => import('./components/producto/producto.module').then((m) => m.ProductoModule),
+                data: { title: 'Producto' }, // ✅ Agregar `title`
+                // canActivate: [AuthGuard], // Protegido con AuthGuard
+            },
+            {
+                path: 'sucursal',
+                loadChildren: () => import('./components/sucursal/sucursal.module').then((m) => m.SucursalModule),
+                data: { title: 'Sucursal' }, // ✅ Agregar `title`
+                // canActivate: [AuthGuard], // Protegido con AuthGuard
+            },
+            {
+                path: 'categoria',
+                loadChildren: () => import('./components/categoria/categoria.module').then((m) => m.CategoriaModule),
+                data: { title: 'Categoria' }, // ✅ Agregar `title`
                 // canActivate: [AuthGuard], // Protegido con AuthGuard
             },
         ],

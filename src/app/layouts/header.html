@@ -109,7 +109,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a routerLink="/users/profile" *hlMenuItem="let menuItem" class="dark:hover:text-white">
                                 <icon-user class="h-4.5 w-4.5 shrink-0 ltr:mr-2 rtl:ml-2" />
 
@@ -129,13 +129,13 @@
 
                                 Lock Screen
                             </a>
-                        </li>
+                        </li> -->
                         <li class="border-t border-white-light dark:border-white-light/10">
-                            <a routerLink="/auth/boxed-signin" *hlMenuItem="let menuItem" class="!py-3 text-danger">
+                            <button routerLink="/auth/boxed-signin" *hlMenuItem="let menuItem" class="!py-3 text-danger" (click)="onLogout()">
                                 <icon-logout class="h-4.5 w-4.5 shrink-0 rotate-90 ltr:mr-2 rtl:ml-2" />
 
-                                Sign Out
-                            </a>
+                                Cerrar sesión
+                            </button>
                         </li>
                     </ul>
                 </div>

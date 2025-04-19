@@ -204,4 +204,10 @@ export class HeaderComponent implements OnInit {
         }
         window.location.reload();
     }
+
+    onLogout() {
+        localStorage.removeItem('access_token');
+        sessionStorage.removeItem('access_token');
+        this.router.navigate(['/auth/login']);
+    }
 }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { slideDownUp } from '../shared/animations';
+import { AlertService, EmpresaInfoStore } from '../shared/alert.service';
 
 @Component({
     moduleId: module.id,
@@ -11,6 +12,8 @@ import { slideDownUp } from '../shared/animations';
     animations: [slideDownUp],
 })
 export class SidebarComponent {
+    empresaInfoStore: EmpresaInfoStore | null | undefined;
+
     active = false;
     store: any;
     activeDropdown: string[] = [];
@@ -19,10 +22,14 @@ export class SidebarComponent {
         public translate: TranslateService,
         public storeData: Store<any>,
         public router: Router,
+        private alert: AlertService,
     ) {
         this.initStore();
     }
     async initStore() {
+        this.alert.getStoreEmpresaInfo().then((res) => {
+            this.empresaInfoStore = res;
+        });
         this.storeData
             .select((d) => d.index)
             .subscribe((d) => {

@@ -1,1 +1,111 @@
-<p>suc-form works!</p>
+<div>
+    <ul class="flex space-x-2 rtl:space-x-reverse">
+        <li><a href="javascript:;" class="text-primary hover:underline">Sucursal</a></li>
+        <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+            <span>{{ isEditMode ? 'Editar' : 'Nueva' }}</span>
+        </li>
+    </ul>
+
+    <div class="mt-5 panel">
+        <h5 class="mb-5 text-lg font-semibold dark:text-white-light">Formulario sucursal</h5>
+
+        <form class="space-y-5" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div [ngClass]="validateField('nombre')">
+                    <label>Nombre</label>
+                    <input type="text" formControlName="nombre" class="form-input" />
+                    <small *ngIf="hasError('nombre', 'required')" class="text-danger">Campo requerido</small>
+                </div>
+
+                <div [ngClass]="validateField('email')">
+                    <label>Email</label>
+                    <input type="email" formControlName="email" class="form-input" />
+                    <small *ngIf="hasError('email', 'email')" class="text-danger">Correo inválido</small>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div [ngClass]="validateField('telefono')">
+                    <label>Teléfono</label>
+                    <input type="text" formControlName="telefono" class="form-input" />
+                </div>
+
+                <div [ngClass]="validateField('tipoEstablecimiento')">
+                    <label>Tipo Establecimiento</label>
+                    <ng-select
+                        [items]="tiposEstablecimiento"
+                        bindLabel="valor"
+                        bindValue="codigo"
+                        formControlName="tipoEstablecimiento"
+                        placeholder="Seleccione"
+                        [clearable]="false"
+                        class="custom-multiselect"
+                    ></ng-select>
+                    <small *ngIf="hasError('tipoEstablecimiento', 'required')" class="text-danger">Campo requerido</small>
+                </div>
+            </div>
+
+            <div [ngClass]="validateField('direccion')">
+                <label>Dirección</label>
+                <input type="text" formControlName="direccion" class="form-input" />
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div [ngClass]="validateField('codPuntoVenta')">
+                    <label>Código Punto Venta</label>
+                    <input type="text" formControlName="codPuntoVenta" class="form-input" />
+                </div>
+
+                <div [ngClass]="validateField('codPuntoVentaMH')">
+                    <label>Código Punto Venta MH</label>
+                    <input type="text" formControlName="codPuntoVentaMH" class="form-input" />
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div [ngClass]="validateField('codigoDte')">
+                    <label>Código DTE</label>
+                    <input type="text" formControlName="codigoDte" class="form-input" />
+                </div>
+
+                <div [ngClass]="validateField('codEstable')">
+                    <label>Código Establecimiento</label>
+                    <input type="text" formControlName="codEstable" class="form-input" />
+                </div>
+
+                <div [ngClass]="validateField('codEstableMH')">
+                    <label>Código Establecimiento MH</label>
+                    <input type="text" formControlName="codEstableMH" class="form-input" />
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div [ngClass]="validateField('departamentoId')">
+                    <label>Departamento</label>
+                    <ng-select
+                        [items]="cat012"
+                        bindLabel="valor"
+                        bindValue="id"
+                        formControlName="departamentoId"
+                        placeholder="Seleccione"
+                        [clearable]="false"
+                    ></ng-select>
+                </div>
+
+                <div [ngClass]="validateField('municipioId')">
+                    <label>Municipio</label>
+                    <ng-select
+                        [items]="cat013"
+                        bindLabel="valor"
+                        bindValue="id"
+                        formControlName="municipioId"
+                        placeholder="Seleccione"
+                        [clearable]="false"
+                    ></ng-select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary !mt-6">Guardar</button>
+        </form>
+    </div>
+</div>
